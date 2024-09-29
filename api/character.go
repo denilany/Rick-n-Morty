@@ -10,14 +10,14 @@ import (
 )
 
 
-func GetCharacterApi(CharacterURL string) (models.CharacterResponse, error) {
+func GetCharacterApi(CharacterURL string) (*models.CharacterResponse, error) {
 	client := &http.Client{
 		Timeout: 10 * time.Second, // Ten second timeout
 	}
 
 	req, err := http.NewRequest("GET", CharacterURL, nil)
 	if err != nil {
-		return models.CharacterResponse{}, fmt.Errorf("failed to create new request: %w", err)
+		return nil, fmt.Errorf("failed to create new request: %w", err)
 	}
 
 	// Set headers
@@ -26,19 +26,19 @@ func GetCharacterApi(CharacterURL string) (models.CharacterResponse, error) {
 	// Make request using the client
 	resp, err := client.Do(req)
 	if err != nil {
-		return models.CharacterResponse{}, fmt.Errorf("request failed: %w", err)
+		return nil, fmt.Errorf("request failed: %w", err)
 	}
 
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return models.CharacterResponse{}, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
+		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 
 	var baseResponse models.CharacterResponse
 	if err := json.NewDecoder(resp.Body).Decode(&baseResponse); err != nil {
-		return models.CharacterResponse{}, fmt.Errorf("failed to decode response: %w", err)
+		return nil, fmt.Errorf("failed to decode response: %w", err)
 	}
 
-	return baseResponse, nil
+	return &baseResponse, nil
 }
