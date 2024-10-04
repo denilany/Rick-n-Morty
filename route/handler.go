@@ -40,16 +40,29 @@ func CharacterHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	result := struct{
-		Name string
+	var results []struct {
+		Name    string
+		Image   string
 		Species string
-		Origin string
-	}{
-		Name: characters.Result.
-
+		Origin  string
 	}
 
-	err = tmpl.Execute(w, characters)
+	for _, character := range characters.Result {
+		result := struct {
+			Name    string
+			Image   string
+			Species string
+			Origin  string
+		}{
+			Name:    character.Name,
+			Image:   character.Image,
+			Species: character.Species,
+			Origin:  character.Origin.Name,
+		}
+		results = append(results, result)
+	}
+
+	err = tmpl.Execute(w, results)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("failed to render template: %v", err), http.StatusInternalServerError)
 	}
