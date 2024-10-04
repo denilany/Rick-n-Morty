@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rick And Morty</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Rick And Morty</h1>
-
-    {{ .range }}
+    {{ range . }}
     <div class="Anime-card">
-        <h3>{{ .Name }}</h3>
-        <p>{{ .Species }}</p>
-        <p>{{ .Origin }}</p>
+      <h3>{{ .Name }}</h3>
+      <img src="{{ .Image}}" alt="" />
+      <p>{{ .Species }}</p>
+      <p>{{ .Origin }}</p>
     </div>
     {{ end }}
-</body>
+  </body>
 </html>
