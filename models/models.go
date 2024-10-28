@@ -1,15 +1,15 @@
 package models
 
 type CharacterResponse struct {
-	Info   ResponseInfo         `json:"info"`
+	Info   PaginationInfo       `json:"info"`
 	Result []ResponseCharacters `json:"results"`
 }
 
-type ResponseInfo struct {
-	Count    int    `json:"count"`
-	Pages    int    `json:"pages"`
-	NextPage string `json:"next"`
-	PrevPage string `json:"prev"`
+type PaginationInfo struct {
+	Count int    `json:"count"`
+	Pages int    `json:"pages"`
+	Next  string `json:"next"`
+	Prev  string `json:"prev"`
 }
 
 type ResponseCharacters struct {
