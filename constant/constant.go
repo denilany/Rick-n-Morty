@@ -1,4 +1,4 @@
-package apiconfig  // or another appropriate name
+package apiconfig
 
 const (
     BaseURL   = "https://rickandmortyapi.com/api/"
