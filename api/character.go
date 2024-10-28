@@ -6,16 +6,22 @@ import (
 	"net/http"
 	"time"
 
+	apiconfig "github.com/denilany/Rick-n-Morty/constant"
 	"github.com/denilany/Rick-n-Morty/models"
 )
 
+func GetCharacters(page string) (*models.CharacterResponse, error) {
+	url := apiconfig.BaseURL + apiconfig.Character
 
-func GetCharacterApi(CharacterURL string) (*models.CharacterResponse, error) {
+	if page != "" {
+		url += "?page=" + page
+	}
+
 	client := &http.Client{
 		Timeout: 10 * time.Second, // Ten second timeout
 	}
 
-	req, err := http.NewRequest("GET", CharacterURL, nil)
+	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create new request: %w", err)
 	}
@@ -35,10 +41,10 @@ func GetCharacterApi(CharacterURL string) (*models.CharacterResponse, error) {
 		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 
-	var baseResponse models.CharacterResponse
-	if err := json.NewDecoder(resp.Body).Decode(&baseResponse); err != nil {
+	var characterResponse models.CharacterResponse
+	if err := json.NewDecoder(resp.Body).Decode(&characterResponse); err != nil {
 		return nil, fmt.Errorf("failed to decode response: %w", err)
 	}
 
-	return &baseResponse, nil
+	return &characterResponse, nil
 }

@@ -9,6 +9,9 @@ import (
 
 func main() {
 	http.HandleFunc("/characters", route.CharacterHandler)
+	
+	fs := http.FileServer(http.Dir("static"))
+	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
 	log.Println("server starting at http://localhost:8080/characters")
 	log.Fatal(http.ListenAndServe(":8080", nil))
