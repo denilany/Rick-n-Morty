@@ -1,0 +1,196 @@
+:root {
+    --neon-green: #66ff66;
+    --portal-blue: #84d9e8;
+    --space-purple: #2c1854;
+    --rick-hair: #75d8d6;
+}
+
+body {
+    background: linear-gradient(to bottom, #1a1a2e, #16213e);
+    color: white;
+    font-family: 'Segoe UI', 'Roboto', sans-serif;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Floating particles animation */
+.space-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    background: var(--portal-blue);
+    border-radius: 50%;
+    opacity: 0.3;
+    animation: float 20s infinite linear;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(100vh) translateX(0);
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.3;
+    }
+    100% {
+        transform: translateY(-100px) translateX(100px);
+        opacity: 0;
+    }
+}
+
+/* Portal spiral animation */
+.spiral-background {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    opacity: 0.1;
+    animation: rotate 20s infinite linear;
+}
+
+@keyframes rotate {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+h1 {
+    text-align: center;
+    font-size: 4rem;
+    margin: 20px 0;
+    color: var(--portal-blue);
+    text-shadow: 0 0 5px var(--portal-blue);
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+.characters {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.character-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    backdrop-filter: blur(5px);
+    border: 2px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.character-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transform: translateX(-100%);
+    transition: 0.5s;
+}
+
+.character-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(102, 255, 102, 0.2);
+}
+
+.character-card:hover::before {
+    transform: translateX(100%);
+}
+
+.character-card img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.character-card h3 {
+    color: var(--portal-blue);
+    margin: 0.5rem 0;
+    font-size: 1.5rem;
+}
+
+.character-card p {
+    color: #ffffff;
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.pagination a {
+    padding: 1rem 2rem;
+    background: rgba(102, 255, 102, 0.1);
+    color: var(--portal-blue);
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: 2px solid var(--portal-blue);
+}
+
+.pagination a:hover {
+    background: var(--portal-blue);
+    color: #000;
+    box-shadow: 0 0 10px var(--portal-blue);
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 5px var(--portal-blue);
+    }
+    to {
+        text-shadow: 0 0 8px var(--portal-blue);
+    }
+}
+
+/* Portal animation in the background */
+.portal-background {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    opacity: 0.05;
+}
+
+@media (max-width: 768px) {
+    .characters {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        padding: 1rem;
+    }
+    
+    h1 {
+        font-size: 2.5rem;
+    }
+}

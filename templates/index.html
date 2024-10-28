@@ -1,19 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rick And Morty</title>
-  </head>
-  <body>
-    <h1>Rick And Morty</h1>
-    {{ range . }}
-    <div class="Anime-card">
-      <h3>{{ .Name }}</h3>
-      <img src="{{ .Image}}" alt="" />
-      <p>{{ .Species }}</p>
-      <p>{{ .Origin }}</p>
-    </div>
-    {{ end }}
-  </body>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rick and Morty Characters</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <!-- Particles background -->
+  <div class="space-particles" id="particles"></div>
+
+  <!-- Spiral Portal Background -->
+  <svg class="spiral-background" viewBox="0 0 100 100">
+      <defs>
+          <linearGradient id="spiral-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:var(--portal-blue);stop-opacity:1" />
+              <stop offset="100%" style="stop-color:var(--neon-green);stop-opacity:0.5" />
+          </linearGradient>
+      </defs>
+      <path d="M50 50 m-45 0 a45,45 0 1,0 90,0 a45,45 0 1,0 -90,0" fill="none" stroke="url(#spiral-gradient)" stroke-width="2">
+          <animateTransform
+              attributeName="transform"
+              attributeType="XML"
+              type="rotate"
+              from="0 50 50"
+              to="360 50 50"
+              dur="10s"
+              repeatCount="indefinite"
+          />
+      </path>
+  </svg>
+
+  <h1>Rick & Morty</h1>
+  <div class="characters">
+      {{range .Characters}}
+      <div class="character-card">
+          <img src="{{.Image}}" alt="Character portrait of {{.Name}} from Rick and Morty">
+          <h3>{{.Name}}</h3>
+          <p>Species: {{.Species}}</p>
+          <p>Origin: {{.Origin}}</p>
+      </div>
+      {{end}}
+  </div>
+
+  <div class="pagination">
+      {{if .PrevPage}}
+          <a href="/characters?page={{.PrevPage}}" class="prev-page">Previous Page</a>
+      {{end}}
+      
+      {{if .NextPage}}
+          <a href="/characters?page={{.NextPage}}" class="next-page">Next Page</a>
+      {{end}}
+  </div>
+
+  <script src="/static/js/index.js"></script>
+</body>
 </html>
