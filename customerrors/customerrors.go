@@ -31,7 +31,7 @@ func ServeErrorPage(w http.ResponseWriter, errorPage ErrorPage) {
 func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
 	ServeErrorPage(w, ErrorPage{
 		StatusCode: http.StatusNotFound,
-		Message:    "Page Not Found",
+		Message:    "Not Found",
 	})
 }
 
