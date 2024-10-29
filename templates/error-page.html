@@ -6,15 +6,15 @@
 
     <link rel="stylesheet" href="/static/css/error-page.css" />
 
-    <title>Error - {{ .StatusCode }}</title>
+    <title>Error {{ .StatusCode }}</title>
   </head>
   <body>
     <main>
       <section class="error">
         <div class="error-container">
           <h2 class="status-code">{{ .StatusCode }}</h2>
-          <p class="status-message">{{ .Message }}</p>
-          <a href="/">Go Back Home</a>
+          <p class="message">{{ .Message }}</p>
+          <a href="/" class="home-link">Go Back Home</a>
         </div>
       </section>
     </main>
