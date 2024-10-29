@@ -20,3 +20,10 @@ func MethodNotAllowedHandler(w http.ResponseWriter, r *http.Request) {
 		Message:    "Method Not Allowed",
 	})
 }
+
+func ForbiddenHandler(w http.ResponseWriter, r *http.Request) {
+	ServeErrorPage(w, ErrorPage{
+		StatusCode: http.StatusForbidden,
+		Message:    "Access Forbidden",
+	})
+}
