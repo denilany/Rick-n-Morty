@@ -1,0 +1,62 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --neon-green: #66ff66;
+  --portal-blue: #84d9e8;
+  --space-purple: #2c1854;
+  --rick-hair: #75d8d6;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  background: linear-gradient(to bottom, #1a1a2e, #16213e);
+  color: white;
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.error .error-container {
+  display: grid;
+  place-items: center;
+  padding: 1.5rem 3rem;
+  border-radius: 0.625rem;
+  row-gap: 2.5rem;
+  background-color: var(--space-purple);
+}
+
+.error .error-container .status-code {
+    font-size: 3.75rem;
+    color: var(--portal-blue);
+}
+
+.error .error-container .status-message {
+    font-size: 1.563rem;
+}
+
+.error .error-container a {
+    padding: 1rem 2rem;
+    background: rgba(102, 255, 102, 0.1);
+    color: var(--portal-blue);
+    text-decoration: none;
+    border-radius: 1.875rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: 2px solid var(--portal-blue);
+    margin-top: 6rem;
+}
+
+.error .error-container a:hover {
+    background: var(--portal-blue);
+    color: #000;
+    box-shadow: 0 0 10px var(--portal-blue);
+}
