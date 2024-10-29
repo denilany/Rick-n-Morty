@@ -26,7 +26,6 @@ type CharacterInfo struct {
 
 func extractPageNumber(fullurl string) string {
 	if fullurl == "" {
-		log.Println("Link to fetch data from cannot be an empty string.")
 		return ""
 	}
 
@@ -41,21 +40,14 @@ func extractPageNumber(fullurl string) string {
 }
 
 func CharacterHandler(w http.ResponseWriter, r *http.Request) {
-	// Display characters from both "/" and "/characters" route
-	if r.URL.Path != "/" && r.URL.Path != "/characters" {
-		customerrors.ServeErrorPage(w, customerrors.ErrorPage{
-			StatusCode: http.StatusNotFound,
-			Message:    "Not Found",
-		})
+	if r.URL.Path != "/characters" {
+		customerrors.NotFoundHandler(w, r)
 		log.Println("Page not found.")
 		return
 	}
 
 	if r.Method != http.MethodGet {
-		customerrors.ServeErrorPage(w, customerrors.ErrorPage{
-			StatusCode: http.StatusMethodNotAllowed,
-			Message:    "Method Not Allowed",
-		})
+		customerrors.MethodNotAllowedHandler(w, r)
 		log.Println("Invalid method while accessing resource.")
 		return
 	}
@@ -64,31 +56,22 @@ func CharacterHandler(w http.ResponseWriter, r *http.Request) {
 	// Gets the page query parameter if it exists
 	page := query.Get("page")
 
-	characterResponse, err := api.GetCharacters(w, page)
+	characterResponse, err := api.GetCharacters(page)
 	if err != nil {
-		customerrors.ServeErrorPage(w, customerrors.ErrorPage{
-			StatusCode: http.StatusInternalServerError,
-			Message:    "An Unexpected Error Occurred. Try Again Later",
-		})
+		customerrors.NotFoundHandler(w, r)
 		log.Printf("Failed fetching character information: %s\n", err)
 		return
 	}
 
 	if characterResponse == nil {
-		customerrors.ServeErrorPage(w, customerrors.ErrorPage{
-			StatusCode: http.StatusNotFound,
-			Message:    "Page Not Found",
-		})
+		customerrors.NotFoundHandler(w, r)
 		log.Println("No character data availabe.")
 		return
 	}
 
 	tmpl, err := template.ParseFiles("templates/index.html")
 	if err != nil {
-		customerrors.ServeErrorPage(w, customerrors.ErrorPage{
-			StatusCode: http.StatusInternalServerError,
-			Message:    "An Unexpected Error Occurred. Try Again Later",
-		})
+		customerrors.InternalServerErrorHandler(w, r)
 		log.Printf("Failed to load template: %v\n", err)
 		return
 	}
@@ -117,10 +100,7 @@ func CharacterHandler(w http.ResponseWriter, r *http.Request) {
 
 	err = tmpl.Execute(w, templateData)
 	if err != nil {
-		customerrors.ServeErrorPage(w, customerrors.ErrorPage{
-			StatusCode: http.StatusInternalServerError,
-			Message:    "An Unexpected Error Occurred. Try Again Later",
-		})
+		customerrors.InternalServerErrorHandler(w, r)
 		log.Printf("Failed to render template: %v\n", err)
 		return
 	}
