@@ -13,3 +13,10 @@ func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
 		Message:    "Page Not Found",
 	})
 }
+
+func MethodNotAllowedHandler(w http.ResponseWriter, r *http.Request) {
+	ServeErrorPage(w, ErrorPage{
+		StatusCode: http.StatusMethodNotAllowed,
+		Message:    "Method Not Allowed",
+	})
+}
