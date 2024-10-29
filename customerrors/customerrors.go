@@ -34,3 +34,10 @@ func InternalServerErrorHandler(w http.ResponseWriter, r *http.Request) {
 		Message:    "An Unexpected Error Occurred. Try Again Later",
 	})
 }
+
+func BadRequestHandler(w http.ResponseWriter, r *http.Request) {
+	ServeErrorPage(w, ErrorPage{
+		StatusCode: http.StatusBadRequest,
+		Message:    "Bad Request",
+	})
+}
