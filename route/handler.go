@@ -75,7 +75,7 @@ func CharacterHandler(w http.ResponseWriter, r *http.Request) {
 			StatusCode: http.StatusNotFound,
 			Message:    "Page Not Found",
 		})
-		log.Printf("No character data availabe.")
+		log.Printf("No character data  availabe.")
 		return
 	}
 
