@@ -27,3 +27,10 @@ func ForbiddenHandler(w http.ResponseWriter, r *http.Request) {
 		Message:    "Access Forbidden",
 	})
 }
+
+func InternalServerErrorHandler(w http.ResponseWriter, r *http.Request) {
+	ServeErrorPage(w, ErrorPage{
+		StatusCode: http.StatusInternalServerError,
+		Message:    "An Unexpected Error Occurred. Try Again Later",
+	})
+}
